@@ -1,43 +1,48 @@
-var gulp = require('gulp');
-var concat = require('gulp-concat'),
+const gulp = require('gulp'),
+    fileinclude = require('gulp-file-include'),
+    concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
-    fileinclude = require('gulp-file-include'),
-    scss = require('gulp-sass'); // sass 호출
-sourcemaps = require('gulp-sourcemaps'), //sourcemaps 호출
-    browserSync = require('browser-sync').create();
+    scss = require('gulp-sass'), // sass 호출
+    sourcemaps = require('gulp-sourcemaps'), //sourcemaps 호출
+    clean = require('gulp-clean'),
+    browserSync = require('browser-sync').create(),
+    resources = 'src/resources',
+    src = {
+        html: ['src/html/**/*.html', 'src/html/*.html'],
+        js: [resources + '/js/*.js', resources + '/js/**/*.js'],
+        css: [resources + '/scss/index.scss'],
+        scss: [resources + '/scss/*.scss', resources + '/scss/**/*.scss'],
+        imgs: [resources + '/images/**', resources + '/images/**/**', 'images/**/**/*']
+    },
+    paths = {
+        html: 'dist/html/',
+        js: 'dist/js/',
+        css: 'dist/css/',
+        imgs: 'dist/images/'
+    },
 
-var src = {
-    html: ['src/html/**/*.html', 'src/html/*.html'],
-    js: ['src/resource/js/*.js', 'src/resource/js/**/*.js'],
-    css: ['src/resource/scss/*.scss', 'src/resource/scss/**/*.scss'],
-    imgs: ['src/resource/images/**', 'src/resource/images/**/**', 'images/**/**/*']
-}
-var paths = {
-    html: 'dist/html/',
-    js: 'dist/js/',
-    css: 'dist/css/',
-    imgs: 'dist/images/'
-}
+    scssOptions = {
+        /** * outputStyle (Type : String , Default : nested) * CSS의 컴파일 결과 코드스타일 지정 * Values : nested, expanded, compact, compressed */
+        outputStyle: "expanded",
 
-var scssOptions = {
-    /** * outputStyle (Type : String , Default : nested) * CSS의 컴파일 결과 코드스타일 지정 * Values : nested, expanded, compact, compressed */
-    outputStyle: "expanded",
+        /** * indentType (>= v3.0.0 , Type : String , Default : space) * 컴파일 된 CSS의 "들여쓰기" 의 타입 * Values : space , tab */
+        indentType: "tab",
 
-    /** * indentType (>= v3.0.0 , Type : String , Default : space) * 컴파일 된 CSS의 "들여쓰기" 의 타입 * Values : space , tab */
-    indentType: "tab",
+        /** * indentWidth (>= v3.0.0, Type : Integer , Default : 2) * 컴파일 된 CSS의 "들여쓰기" 의 갯수 */
+        indentWidth: 1,
 
-    /** * indentWidth (>= v3.0.0, Type : Integer , Default : 2) * 컴파일 된 CSS의 "들여쓰기" 의 갯수 */
-    indentWidth: 1,
+        /** * outputStyle 이 nested, expanded 인 경우에 사용 /** * precision (Type : Integer , Default : 5) * 컴파일 된 CSS 의 소수점 자리수. */
+        precision: 6,
 
-    /** * outputStyle 이 nested, expanded 인 경우에 사용 /** * precision (Type : Integer , Default : 5) * 컴파일 된 CSS 의 소수점 자리수. */
-    precision: 6,
+        /** * sourceComments (Type : Boolean , Default : false) * 컴파일 된 CSS 에 원본소스의 위치와 줄수 주석표시. */
+        sourceComments: true
+    };
 
-    /** * sourceComments (Type : Boolean , Default : false) * 컴파일 된 CSS 에 원본소스의 위치와 줄수 주석표시. */
-    sourceComments: true
+function clear() {
+    return gulp.src('dist/*', { read: false })
+        .pipe(clean());
 };
-
-
 
 function htmlComplie() {
     return gulp.src(src.html)
@@ -100,10 +105,17 @@ function watchFiles() {
 function brwSync() {
     browserSync.init({
         server: {
-            baseDir: '../build/'
+            baseDir: 'dist/'
         }
     });
 }
 
+const isCompile = [
+    htmlComplie,
+    scssCompile,
+    concatJs,
+    imgs
+];
 
-gulp.task('default', gulp.parallel(gulp.series(htmlComplie, scssCompile, concatJs, imgs), brwSync, watchFiles));
+gulp.task('build', gulp.series(clear, gulp.parallel(isCompile)));
+gulp.task('dev', gulp.series(clear, gulp.parallel(isCompile), watchFiles));
