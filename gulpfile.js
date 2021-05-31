@@ -9,7 +9,7 @@ const gulp = require('gulp'),
     browserSync = require('browser-sync').create(),
     resources = 'src/resources',
     src = {
-        html: ['src/html/**/*.html', 'src/html/*.html'],
+        html: ['src/html/**/**/**/*.html', 'src/html/**/**/*.html', 'src/html/**/*.html', 'src/html/*.html'],
         js: [resources + '/js/*.js', resources + '/js/**/*.js'],
         css: [resources + '/scss/index.scss'],
         scss: [resources + '/scss/*.scss', resources + '/scss/**/*.scss'],
