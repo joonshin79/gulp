@@ -8,30 +8,31 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "browser-sync": "^2.26.13",
-        "gulp-clean": "^0.3.2",
+        "browser-sync": "^2.27.5",
+        "gulp-clean": "^0.4.0",
         "gulp-concat": "^2.6.1",
         "gulp-foreach": "^0.1.0",
-        "gulp-sass": "^3.2.1",
-        "run-sequence": "^1.2.2"
+        "gulp-sass": "^5.0.0",
+        "run-sequence": "^2.2.1",
+        "sass": "^1.43.2"
     },
     "dependencies": {
         "event-stream": "^4.0.1",
         "gulp": "^4.0.2",
-        "gulp-file-include": "^2.2.2",
+        "gulp-file-include": "^2.3.0",
         "gulp-rename": "^2.0.0",
-        "gulp-sourcemaps": "^2.6.5",
+        "gulp-sourcemaps": "^3.0.0",
         "gulp-uglify": "^3.0.2",
         "gulp-util": "^3.0.8",
-        "npm-check-updates": "^11.5.13"
+        "npm-check-updates": "^11.8.5"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/joonshin79/study.git"
+        "url": "git+https://github.com/joonshin79/shinsegaedf.git"
     },
     "bugs": {
-        "url": "https://github.com/joonshin79/study/issues"
+        "url": "https://github.com/joonshin79/shinsegaedf/issues"
     },
-    "homepage": "https://github.com/joonshin79/study#readme",
+    "homepage": "https://github.com/joonshin79/shinsegaedf#readme",
     "description": ""
 }
