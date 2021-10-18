@@ -24,10 +24,13 @@ https://nodejs.org/ko/
 `npm install --global gulp-cli`
 
 
-## 05. package 설치
+## 05. package 최신버전으로 업데이트
+
+`ncu -u`
+
+## 06. package 설치
 
 `npm install`
-
 
 ## Build
 
