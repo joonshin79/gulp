@@ -8,21 +8,23 @@ const gulp = require('gulp'),
   clean = require('gulp-clean'),
   browserSync = require('browser-sync').create(),
   resources = 'src/resources',
-  dist = 'dist';
-(src = {
-  html: ['src/html/**/**/**/*.html', 'src/html/**/**/*.html', 'src/html/**/*.html', 'src/html/*.html'],
-  js: [`${resources}/js/*.js`, `${resources}/js/**/*.js`],
-  css: [`${resources}/scss/index.scss`],
-  scss: [`${resources}/scss/*.scss`, `${resources}/scss/**/*.scss`],
-  imgs: [`${resources}/images/**`, `${resources}/images/**/**`, `${resources}/images/**/**/*`],
-}),
-  (paths = {
+  dist = 'dist',
+  src = {
+    html: ['src/html/**/**/**/*.html', 'src/html/**/**/*.html', 'src/html/**/*.html', 'src/html/*.html'],
+    js: [`${resources}/js/*.js`, `${resources}/js/**/*.js`],
+    css: [`${resources}/scss/index.scss`],
+    scss: [`${resources}/scss/*.scss`, `${resources}/scss/**/*.scss`],
+    imgs: [`${resources}/images/**`, `${resources}/images/**/**`, `${resources}/images/**/**/*`],
+    fonts: [`${resources}/fonts/**`, `${resources}/fonts/**/**`, `${resources}/fonts/**/**/*`],
+  },
+  paths = {
     html: `${dist}/html`,
     js: `${dist}/js`,
     css: `${dist}/css`,
     imgs: `${dist}/images`,
-  }),
-  (scssOptions = {
+    fonts: `${dist}/fonts`,
+  },
+  scssOptions = {
     /** * outputStyle (Type : String , Default : nested) * CSS의 컴파일 결과 코드스타일 지정 * Values : nested, expanded, compact, compressed */
     outputStyle: 'expanded',
 
@@ -37,10 +39,10 @@ const gulp = require('gulp'),
 
     /** * sourceComments (Type : Boolean , Default : false) * 컴파일 된 CSS 에 원본소스의 위치와 줄수 주석표시. */
     sourceComments: true,
-  });
+  };
 
 const clear = () => {
-  return gulp.src('dist/*', {read: false, allowEmpty: true}).pipe(clean());
+  return gulp.src(`${dist}/*`, {read: false, allowEmpty: true}).pipe(clean());
 };
 
 const htmlComplie = () => {
@@ -96,6 +98,13 @@ const imgs = () => {
     .pipe(browserSync.reload({stream: true}));
 };
 
+const fonts = () => {
+  return gulp
+    .src(src.fonts)
+    .pipe(gulp.dest(paths.fonts))
+    .pipe(browserSync.reload({stream: true}));
+};
+
 const watchFiles = () => {
   gulp.watch(src.html).on('change', htmlComplie);
   gulp.watch(src.css, scssCompile);
@@ -113,7 +122,7 @@ const brwSync = () => {
   });
 };
 
-const isCompile = [htmlComplie, scssCompile, concatJs, imgs];
+const isCompile = [htmlComplie, scssCompile, concatJs, imgs, fonts];
 
 gulp.task('build', gulp.series(clear, gulp.parallel(isCompile)));
 gulp.task('dev', gulp.series(clear, gulp.parallel(isCompile, brwSync), watchFiles));
