@@ -113,9 +113,10 @@ const fonts = () => {
 const watchFiles = () => {
   console.log('test');
   gulp.watch(src.html).on('change', htmlComplie);
-  gulp.watch(src.css, scssCompile);
-  gulp.watch(src.js, jsCompile);
-  gulp.watch(src.imgs, imgs);
+  gulp.watch(src.css).on('change', scssCompile);
+  gulp.watch(src.scss).on('change', scssCompile);
+  gulp.watch(src.js).on('change', jsCompile);
+  gulp.watch(src.imgs).on('change', imgs);
 };
 
 const brwSync = () => {
