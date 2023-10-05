@@ -1,4 +1,5 @@
 const gulp = require('gulp'),
+  prettier = require('gulp-prettier'),
   fileinclude = require('gulp-file-include'),
   scss = require('gulp-sass')(require('sass')), // sass 호출
   sourcemaps = require('gulp-sourcemaps'), //sourcemaps 호출
@@ -8,18 +9,19 @@ const gulp = require('gulp'),
   resources = 'src/resources',
   dest = 'dest',
   src = {
-    html: ['src/html/**/**/**/*.html', 'src/html/**/**/*.html', 'src/html/**/*.html', 'src/html/*.html'],
+    html: ['src/html/*.html'],
+    htmls: ['src/html/**/**/**/*.html', 'src/html/**/**/*.html', 'src/html/**/*.html', 'src/html/*.html'],
     js: [`${resources}/js/*.js`, `${resources}/js/**/*.js`],
     css: [`${resources}/scss/index.scss`],
     scss: [`${resources}/scss/*.scss`, `${resources}/scss/**/*.scss`],
-    imgs: [`${resources}/images/**`, `${resources}/images/**/**`, `${resources}/images/**/**/*`],
+    imgs: [`${resources}/img/**`, `${resources}/img/**/**`, `${resources}/img/**/**/*`],
     fonts: [`${resources}/fonts/**`, `${resources}/fonts/**/**`, `${resources}/fonts/**/**/*`],
   },
   paths = {
     html: `${dest}/html`,
     js: `${dest}/js`,
     css: `${dest}/css`,
-    imgs: `${dest}/images`,
+    imgs: `${dest}/img`,
     fonts: `${dest}/fonts`,
   },
   scssOptions = {
@@ -52,30 +54,20 @@ const htmlComplie = () => {
         basepath: '@file',
       }),
     )
+    .pipe(prettier({singleQuote: true}))
     .pipe(gulp.dest(paths.html))
     .pipe(browserSync.reload({stream: true}));
 };
 
 const scssCompile = () => {
-  return (
-    gulp
-      .src(src.css)
-
-      // 소스맵 초기화(소스맵을 생성)
-      .pipe(sourcemaps.init())
-
-      // SCSS 함수에 옵션갑을 설정, SCSS 작성시 watch 가 멈추지 않도록 logError 를 설정
-      .pipe(scss(scssOptions).on('error', scss.logError))
-
-      // 위에서 생성한 소스맵을 사용한다.
-      .pipe(sourcemaps.write())
-
-      // 목적지(destination)을 설정
-      .pipe(gulp.dest(paths.css))
-
-      //browserSync 로 브라우저에 반영;
-      .pipe(browserSync.reload({stream: true}))
-  );
+  return gulp
+    .src(src.css)
+    .pipe(sourcemaps.init())
+    .pipe(scss(scssOptions).on('error', scss.logError))
+    .pipe(sourcemaps.write())
+    .pipe(prettier({singleQuote: true}))
+    .pipe(gulp.dest(paths.css))
+    .pipe(browserSync.reload({stream: true}));
 };
 
 // const jsCompile = () => {
@@ -92,6 +84,7 @@ const scssCompile = () => {
 const jsCompile = () => {
   return gulp
     .src(src.js)
+    .pipe(prettier({singleQuote: true}))
     .pipe(gulp.dest(paths.js))
     .pipe(browserSync.reload({stream: true}));
 };
@@ -111,8 +104,8 @@ const fonts = () => {
 };
 
 const watchFiles = () => {
-  console.log('test');
   gulp.watch(src.html).on('change', htmlComplie);
+  gulp.watch(src.htmls).on('change', htmlComplie);
   gulp.watch(src.css).on('change', scssCompile);
   gulp.watch(src.scss).on('change', scssCompile);
   gulp.watch(src.js).on('change', jsCompile);
