@@ -1,38 +1,39 @@
 {
-    "name": "study",
-    "version": "1.0.0",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "author": "",
-    "license": "ISC",
-    "devDependencies": {
-        "browser-sync": "^2.29.3",
-        "gulp-clean": "^0.4.0",
-        "gulp-concat": "^2.6.1",
-        "gulp-foreach": "^0.1.0",
-        "gulp-sass": "^5.1.0",
-        "run-sequence": "^2.2.1",
-        "sass": "^1.68.0"
-    },
-    "dependencies": {
-        "event-stream": "^4.0.1",
-        "gulp": "^4.0.2",
-        "gulp-file-include": "^2.3.0",
-        "gulp-rename": "^2.0.0",
-        "gulp-sourcemaps": "^3.0.0",
-        "gulp-uglify": "^3.0.2",
-        "gulp-util": "^3.0.8",
-        "npm-check-updates": "^16.14.5"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/joonshin79/shinsegaedf.git"
-    },
-    "bugs": {
-        "url": "https://github.com/joonshin79/shinsegaedf/issues"
-    },
-    "homepage": "https://github.com/joonshin79/shinsegaedf#readme",
-    "description": ""
+  "name": "study",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.29.3",
+    "gulp-clean": "^0.4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-foreach": "^0.1.0",
+    "gulp-sass": "^5.1.0",
+    "run-sequence": "^2.2.1",
+    "sass": "^1.68.0"
+  },
+  "dependencies": {
+    "event-stream": "^4.0.1",
+    "gulp": "^4.0.2",
+    "gulp-cli": "^2.3.0",
+    "gulp-file-include": "^2.3.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-util": "^3.0.8",
+    "npm-check-updates": "^16.14.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joonshin79/shinsegaedf.git"
+  },
+  "bugs": {
+    "url": "https://github.com/joonshin79/shinsegaedf/issues"
+  },
+  "homepage": "https://github.com/joonshin79/shinsegaedf#readme",
+  "description": ""
 }
