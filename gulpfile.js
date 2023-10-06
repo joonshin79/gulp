@@ -65,7 +65,6 @@ const scssCompile = () => {
     .pipe(sourcemaps.init())
     .pipe(scss(scssOptions).on('error', scss.logError))
     .pipe(sourcemaps.write())
-    .pipe(prettier({singleQuote: true}))
     .pipe(gulp.dest(paths.css))
     .pipe(browserSync.reload({stream: true}));
 };
